@@ -41,9 +41,15 @@ export const Header = () => {
 				</div>
 
 				<nav className="flex gap-3 items-center">
-					{/* Гость */}
 					{roleId === ROLE.GUEST && (
 						<>
+							<Button
+								variant="orange"
+								className="!w-auto !px-5 !py-2 !text-base whitespace-nowrap"
+								onClick={() => navigate('/')}
+							>
+								Главная
+							</Button>
 							<Button
 								variant="orange"
 								className="!w-auto !px-5 !py-2 !text-base whitespace-nowrap"
@@ -60,8 +66,6 @@ export const Header = () => {
 							</Button>
 						</>
 					)}
-
-					{/* Пользователь или админ */}
 					{roleId === ROLE.USER || roleId === ROLE.ADMIN ? (
 						<>
 							{roleId === ROLE.USER && (

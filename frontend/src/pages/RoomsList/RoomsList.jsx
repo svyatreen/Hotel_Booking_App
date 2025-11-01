@@ -1,5 +1,5 @@
 import { RoomCard } from './components';
-import { useRooms, useBookings } from '../../hooks';
+import { useRooms } from '../../hooks';
 import { Loader, ErrorMessage } from '../../components';
 import { useSelector } from 'react-redux';
 import { selectUserRole } from '../../selectors';
@@ -7,16 +7,12 @@ import { ROLE } from '../../constants';
 import { Navigate } from 'react-router-dom';
 
 export const RoomsList = () => {
-	const { rooms, loading, error } = useRooms();
-	const { bookings } = useBookings();
 	const roleId = useSelector(selectUserRole);
+	const { rooms, loading, error } = useRooms(true);
 
 	if (roleId === ROLE.ADMIN) {
 		return <Navigate to="/admin" />;
 	}
-
-	const bookedRoomIds = bookings.map((b) => b.roomId);
-	const availableRooms = rooms.filter((room) => !bookedRoomIds.includes(room.id));
 
 	if (loading) return <Loader />;
 
@@ -28,9 +24,9 @@ export const RoomsList = () => {
 
 			<ErrorMessage message={error} className="mt-4" />
 
-			{availableRooms.length > 0 ? (
+			{rooms.length > 0 ? (
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-					{availableRooms.map((room) => (
+					{rooms.map((room) => (
 						<RoomCard key={room.id} room={room} />
 					))}
 				</div>

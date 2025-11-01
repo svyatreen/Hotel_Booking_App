@@ -7,3 +7,4 @@ export * from './register';
 export * from './deleteRoomById';
 export * from './updateRoom';
 export * from './logout';
+export * from './getAvailableRooms';

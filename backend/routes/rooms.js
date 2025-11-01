@@ -10,8 +10,21 @@ const authenticated = require('../middlewares/authenticated');
 const hasRole = require('../middlewares/hasRole');
 const roles = require('../constants/roles');
 const mapRoom = require('../helpers/mapRoom');
+const Booking = require('../models/Booking');
 
 const router = express.Router();
+
+router.get('/available', async (req, res) => {
+  const allRooms = await getRooms();
+  const bookings = await Booking.find();
+  const bookedRoomIds = bookings.map((b) => String(b.roomId));
+
+  const availableRooms = allRooms.filter(
+    (room) => !bookedRoomIds.includes(String(room._id))
+  );
+
+  res.send({ payload: availableRooms.map(mapRoom) });
+});
 
 router.get('/', async (req, res) => {
   const rooms = await getRooms();

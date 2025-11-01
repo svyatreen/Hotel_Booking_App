@@ -44,7 +44,25 @@ export const RoomDetailsCard = ({
 								onChange={onChange}
 								placeholder="Описание"
 								className="w-full rounded-md border border-orange-200 bg-orange-50 px-4 py-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-300 mb-4"
-								style={{ minHeight: '400px', resize: 'vertical' }}
+								style={{ minHeight: '200px', resize: 'vertical' }}
+							/>
+							<Input
+								type="text"
+								placeholder="Категория"
+								registerProps={{
+									name: 'category',
+									value: room.category,
+									onChange,
+								}}
+							/>
+							<Input
+								type="number"
+								placeholder="Вместимость"
+								registerProps={{
+									name: 'capacity',
+									value: room.capacity,
+									onChange,
+								}}
 							/>
 							<Input
 								type="number"
@@ -77,6 +95,7 @@ export const RoomDetailsCard = ({
 						</>
 					)}
 				</div>
+
 				{!isAdmin && !isBooked && !isEditing && (
 					<Button
 						variant="orange"

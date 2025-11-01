@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { getRooms } from '../api';
+import { useState, useEffect, useCallback } from 'react';
+import { getRooms, getAvailableRooms } from '../api';
 
-export const useRooms = () => {
+export const useRooms = (onlyAvailable = false) => {
 	const [rooms, setRooms] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	const fetchRooms = async () => {
+	const fetchRooms = useCallback(async () => {
 		try {
 			setLoading(true);
-			const data = await getRooms();
+			const data = onlyAvailable ? await getAvailableRooms() : await getRooms();
 			setRooms(data);
 		} catch (err) {
 			console.error(err);
@@ -17,11 +17,11 @@ export const useRooms = () => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [onlyAvailable]);
 
 	useEffect(() => {
 		fetchRooms();
-	}, []);
+	}, [onlyAvailable, fetchRooms]);
 
 	return { rooms, loading, error, refresh: fetchRooms };
 };
