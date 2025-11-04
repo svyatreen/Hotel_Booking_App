@@ -1,5 +1,5 @@
 export async function updateRoom(id, updatedRoom) {
-	const res = await fetch(`http://localhost:3001/api/rooms/${id}`, {
+	const res = await fetch(`/api/rooms/${id}`, {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(updatedRoom),

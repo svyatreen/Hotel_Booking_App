@@ -1,5 +1,5 @@
 export async function deleteRoomById(id) {
-	const res = await fetch(`http://localhost:3001/api/rooms/${id}`, {
+	const res = await fetch(`/api/rooms/${id}`, {
 		method: 'DELETE',
 		credentials: 'include',
 	});
